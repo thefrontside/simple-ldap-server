@@ -27,10 +27,12 @@ export class UserStore {
     }
 
     private getObject(dn: string): any {
+        LOG.info('in getObject');
         return this.dataProvider.get(dn);
     }
 
     public find(dn: any, scope: string, filter: any): { dn: string; attributes: object; }[] {
+        LOG.error('find', dn)
         switch (scope) {
             case 'base':
                 // matches the requested DN only
@@ -49,6 +51,7 @@ export class UserStore {
     }
 
     private findEntryOnBaseLevelScope(dn: any, filter: any): { dn: string; attributes: object; }[] {
+        LOG.info('in findEntryOnBaseLevelScope');
         const results = [];
         const stringifiedDN = this.convertToString(dn);
         const obj = this.getObject(stringifiedDN);
@@ -62,6 +65,7 @@ export class UserStore {
     }
 
     private findEntriesOnOneLevelScope(dn: any, filter: any): { dn: string; attributes: object; }[] {
+        LOG.info('in findEntriesOnOneLevelScope')
         const results: { dn: string; attributes: object; }[] = [];
         for (const userDN of this.dataProvider.getAllUserDNs()) {
             const parent = ldap.parseDN(userDN).parent();
@@ -82,6 +86,7 @@ export class UserStore {
     }
 
     private findEntriesOnSubTreeLevelScope(dn: any, filter: any): { dn: string; attributes: object; }[] {
+        LOG.info('in findEntriesOnSubTreeLevelScope')
         const results: { dn: string; attributes: object; }[] = [];
         for (const userDN of this.dataProvider.getAllUserDNs()) {
             if (dn.equals(userDN) == false && dn.parentOf(userDN) == false) { continue; }
@@ -114,16 +119,19 @@ export class UserStore {
     }
 
     public get searchBase(): string {
+        LOG.info('in searchBase')
         return this.dataProvider.getSearchBaseDN();
     }
 
     public hasSearchPermission(bindDN: string): boolean {
-        const user: any = this.dataProvider.get(bindDN);
-        if (user == null || user.permissions == null) {
-            return false;
-        }
-        const permissions:string[]=user.permissions;
-        return permissions.includes('search');
+        return true;
+        // const user: any = this.dataProvider.get(bindDN);
+        // console.dir({ user, bindDN })
+        // if (user == null || user.permissions == null) {
+        //     return false;
+        // }
+        // const permissions:string[]=user.permissions;
+        // return permissions.includes('search');
     }
 }
 

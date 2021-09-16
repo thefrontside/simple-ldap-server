@@ -1,6 +1,7 @@
 import { DataProvider } from "./abstract-data-provider";
 import ldap from 'ldapjs'
 import { LOG } from "../util/logger";
+import path from 'path';
 
 export class UserFileStore extends DataProvider {
     private readonly store: Map<string, any> = new Map<string, any>();
@@ -33,7 +34,7 @@ export class UserFileStore extends DataProvider {
         return clone;
     }
 
-    public async load(config: any, json = require(config.location)): Promise<number> {
+    public async load(config: any, json = require(path.join(process.cwd(), 'etc', 'store.json'))): Promise<number> {
         const root = config['root-entry'];
         const userGroupOu = config['user-group-ou'];
         const defaultPassword = config['common-password'];

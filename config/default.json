@@ -15,10 +15,10 @@
                 defines the user file store, 
                 which supports loading users from a file to a one specific user group
                 */
-                "location": "/app/etc/store.json", /* location of the file. File should be a json*/
+                "location": "../graphway/backend/backstage/src/ingestion/processors/ldap/store.json", /* location of the file. File should be a json*/
                 "users-array-name": "users", /* property name of the user array*/
                 "common-password": "itachi", /* password for all the users */
-                "user-group-ou": "ou=users", /* User group that all the defined users are linked to*/
+                "user-group-ou": "ou=hp.com", /* User group that all the defined users are linked to*/
                 "root-entry": "dc=mtr,dc=com", /* DC of the structure */
                 "attribute-mapping": {
                     /*
@@ -46,7 +46,8 @@
                     "cn": "obj.id",
                     "password": "obj.credential", /* if this is null common passowrd will be used*/
                     "objectClass": "User",
-                    "permissions": "obj.permissions"
+                    "permissions": "obj.permissions",
+                    "employeeType": "obj.employeeType"
                 },
                 "optional": {
                     /*
@@ -57,7 +58,7 @@
                             allow adding additional users with search permission
                         */
                         {
-                            "dn": "cn=search_user,ou=users,dc=mtr,dc=com", /* complete DN of the user*/
+                            "dn": "cn=search_user,ou=hp.com,dc=mtr,dc=com", /* complete DN of the user*/
                             "password": "sasuke" /* password for this specific user */
                         }
                     ]

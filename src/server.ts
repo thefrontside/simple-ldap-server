@@ -2,7 +2,7 @@ import ldap from 'ldapjs';
 import { UserStore } from './user-store';
 import { LOG } from './util/logger';
 import { ServerOptions } from 'https';
-import { promises } from 'dns';
+import path from 'path';
 
 class ServerConfiguration {
     public ldap?: { port: number, enabled: boolean };
@@ -32,17 +32,26 @@ export class Server {
         if (protocol == 'ldaps') {
             const fs = require('fs');
             options = <ServerOptions>{
-                key: fs.readFileSync(ldapConfiguration['key-location']),
-                certificate: fs.readFileSync(ldapConfiguration['cert-location'])
+                key: fs.readFileSync(path.join(process.cwd(), 'cert', 'key.pem')), //fs.readFileSync(ldapConfiguration['key-location']),
+                certificate: fs.readFileSync(path.join(process.cwd(), 'cert', 'cert.pem')) //fs.readFileSync(ldapConfiguration['cert-location'])
             };
         }
 
         const server: ldap.Server = ldap.createServer(options);
         server.bind(this.userStore.searchBase,
-            (req: any, res: any, next: any) => this.bindHandler(req, res, next));
+            (req: any, res: any, next: any) => {
+                LOG.error('in bind handler');
+                return this.bindHandler(req, res, next);
+            })
         server.search(this.userStore.searchBase,
-            (req: any, res: any, next: any) => this.authenticationHandler(req, res, next),
-            (req: any, res: any, next: any) => this.searchHandler(req, res, next)
+            (req: any, res: any, next: any) => {
+                LOG.error('in authentication handler')
+                return this.authenticationHandler(req, res, next)
+            },
+            (req: any, res: any, next: any) => {
+                LOG.error('in search handler');
+                return this.searchHandler(req, res, next)
+            }
         );
         this.servers[protocol == 'ldaps' ? 'ldaps' : 'ldap'] = server;
     }

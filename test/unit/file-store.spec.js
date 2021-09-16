@@ -3,7 +3,6 @@ const { UserFileStore } = require("../../lib/user-store/file-store");
 describe('User file store', () => {
     let userFileStore;
     beforeAll(() => {
-        console.log("Before All", "Creating UserFileStore")
         userFileStore = new UserFileStore();
     });
 

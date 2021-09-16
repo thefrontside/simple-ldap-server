@@ -1,10 +1,10 @@
 {
     "users": [
-        {"id": "admin", "permissions": ["search"]},
-        {"id":"kamal"},
-        {"id":"nimal"},
-        {"id":"anil"},
-        {"id":"supun"},
-        {"id":"dasun"}
+        {"id": "admin", "employeeType": "Regular", "permissions": ["search"]},
+        {"id":"bob", "employeeType": "Regular"},
+        {"id":"john", "employeeType": "Regular"},
+        {"id":"michael", "employeeType": "Regular"},
+        {"id":"karen", "employeeType": "Regular"},
+        {"id":"carol", "employeeType": "Regular"}
     ]
 }
