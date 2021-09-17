@@ -34,7 +34,8 @@ export class UserFileStore extends DataProvider {
         return clone;
     }
 
-    public async load(config: any, json = require(path.join(process.cwd(), 'etc', 'store.json'))): Promise<number> {
+    public async load(config: any): Promise<number> {
+        const json = require(path.join(process.cwd(), config.location))
         const root = config['root-entry'];
         const userGroupOu = config['user-group-ou'];
         const defaultPassword = config['common-password'];

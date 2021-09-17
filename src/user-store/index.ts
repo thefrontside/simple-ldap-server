@@ -27,7 +27,7 @@ export class UserStore {
     }
 
     private getObject(dn: string): any {
-        LOG.info('in getObject');
+        LOG.error(`pulling data from ${dn}`);
         return this.dataProvider.get(dn);
     }
 
@@ -119,7 +119,6 @@ export class UserStore {
     }
 
     public get searchBase(): string {
-        LOG.info('in searchBase')
         return this.dataProvider.getSearchBaseDN();
     }
 

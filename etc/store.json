@@ -1,10 +1,32 @@
 {
     "users": [
-        {"id": "admin", "employeeType": "Regular", "permissions": ["search"]},
-        {"id":"bob", "employeeType": "Regular"},
-        {"id":"john", "employeeType": "Regular"},
-        {"id":"michael", "employeeType": "Regular"},
-        {"id":"karen", "employeeType": "Regular"},
-        {"id":"carol", "employeeType": "Regular"}
+        {
+            "id": "dagda1@hp.com",
+            "title": "Mr",
+            "displayName": "Paul Cowan",
+            "employeeType": "Outsourced Service Contractor",
+            "co": "GB",
+            "st": "Lanarkshire",
+            "l": "Glasgow"
+        },
+        {
+            "id": "anthony.johnston@hp.com",
+            "title": "Mr",
+            "displayName": "Anthony Johnston",
+            "employeeType": "Regular",
+            "co": "USA",
+            "st": "Massachusetts",
+            "l": "Boston",
+            "permissions": ["search"]
+        },
+        {
+            "id": "carole.jones@hp.com",
+            "title": "Ms",
+            "displayName": "Carole Jones",
+            "employeeType": "Temporary",
+            "co": "USA",
+            "st": "Texas",
+            "l": "Austin"
+        }
     ]
 }
